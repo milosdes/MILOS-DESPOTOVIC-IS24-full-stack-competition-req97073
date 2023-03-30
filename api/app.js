@@ -4,6 +4,8 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const productController = require('./productController');
+const path = require('path');
+const fs = require('fs');
 
 //Configure cors options
 const corsOptions = {
@@ -17,6 +19,12 @@ const jsonParser = bodyParser.json();
 
 app.use(cors(corsOptions));
 app.use(jsonParser);
+
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 //Checks health of in-memory data object
 app.get('/api/health', productController.healthCheck);
@@ -40,4 +48,8 @@ process.on('SIGINT', () => {
     process.exit();
 });
 
-app.listen(PORT, () => console.log(`App running on port ${PORT}`));
+app.listen(PORT, () =>
+    console.log(
+        `App running on port ${PORT}\nPlease visit http://localhost:${PORT}`
+    )
+);
