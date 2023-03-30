@@ -8,7 +8,8 @@
 /client/coverage
 
 # production
-/client/build
+# Commented this out to include the build folder on GitHub for simplicity
+# /client/build
 
 # misc
 /client/.DS_Store
