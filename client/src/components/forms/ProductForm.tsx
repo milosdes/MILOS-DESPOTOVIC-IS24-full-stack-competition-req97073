@@ -119,7 +119,7 @@ const ProductForm = ({ onSubmit, productsList }: IProductFormProps) => {
 
     const handleAddDeveloper = (e: any) => {
         //If input exists, add value to form state
-        if (developerFieldInput.length > 0) {
+        if (developerFieldInput.length > 0 && formState.Developers.length < 5) {
             setFormState({
                 ...formState,
                 Developers: [...formState.Developers, developerFieldInput],
