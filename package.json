@@ -6,10 +6,9 @@
     "scripts": {
         "install-client": "cd client && npm install",
         "build-client": "npm run build --prefix client",
-        "install-app": "concurrently \"npm install\" \"npm run install-client\" \"npm run build-client\"",
         "start-server": "node api/app.js",
         "start-client": "npm start --prefix client",
-        "start-dev": "concurrently \"npm run install-app\" \"npm run start-server\" \"npm run start-client\"",
+        "start-dev": "concurrently \"npm run install-client\" \"npm run start-server\" \"npm run start-client\"",
         "start": "node api/app.js"
     },
     "author": "Milos Despotovic",
