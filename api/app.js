@@ -34,4 +34,10 @@ app.put('/api/products/:id', productController.updateProduct);
 //DELETE endpoint that was mentioned under 'API Component'
 app.delete('/api/products/:id', productController.deleteProduct);
 
+//Saves updated data to data.json on exit
+process.on('exit', productController.saveDataOnExit);
+process.on('SIGINT', () => {
+    process.exit();
+});
+
 app.listen(PORT, () => console.log(`App running on port ${PORT}`));
