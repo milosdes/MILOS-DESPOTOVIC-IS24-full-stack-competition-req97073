@@ -126,6 +126,8 @@ const ProductForm = ({ onSubmit, productsList }: IProductFormProps) => {
             });
             //Reset input field
             setDeveloperFieldInput('');
+            validateFields();
+            if (formDataIsValid()) setFormAlert(null);
         }
     };
 
