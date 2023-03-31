@@ -1,0 +1,377 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "MILOS-DESPOTOVIC-is24-full-stack-competition-req97073",
+        "version": "1.0.0",
+        "description": "Milos Despotovic's Web Application for the code challenge for the BC Government Ministry of Citizens' Services Information Management Branch. \n- [GitHub repository](https://github.com/milosdespotovic/MILOS-DESPOTOVIC-IS24-full-stack-competition-req97073)",
+        "contact": {
+            "name": "Milos Despotovic",
+            "email": "milosmdes@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api"
+        }
+    ],
+    "tags": {
+        "name": "products",
+        "description": "Access to IMB products"
+    },
+    "schemes": ["http"],
+    "paths": {
+        "/api/products": {
+            "get": {
+                "tags": ["products"],
+                "summary": "Get a list of all products",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK. Returns the list of all products.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "ref": "#/components/schemas/Product"
+                                    },
+                                    "example": [
+                                        {
+                                            "productId": 1,
+                                            "productName": "SmartGlasses",
+                                            "productOwnerName": "Alicia Perez",
+                                            "Developers": [
+                                                "Ryan Kim",
+                                                "Ava Patel",
+                                                "Sebastian Chan",
+                                                "Sophie Nguyen",
+                                                "Samuel Smith"
+                                            ],
+                                            "scrumMasterName": "Elena Rodriguez",
+                                            "startDate": "2015/02/12",
+                                            "methodology": "Agile"
+                                        },
+                                        {
+                                            "productId": 2,
+                                            "productName": "SmartFridge",
+                                            "productOwnerName": "Hassan Khan",
+                                            "Developers": [
+                                                "Liam Wong",
+                                                "Aisha Gupta",
+                                                "David Chen",
+                                                "Emily Rodriguez",
+                                                "Carlos Lee"
+                                            ],
+                                            "scrumMasterName": "Fatima Ali",
+                                            "startDate": "2009/09/18",
+                                            "methodology": "Waterfall"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error."
+                    }
+                }
+            },
+            "post": {
+                "tags": ["products"],
+                "summary": "Create a new product",
+                "produces": ["application/json"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "example": {
+                                    "productName": "Acme Widget",
+                                    "productOwnerName": "Rafaela Costa",
+                                    "Developers": [
+                                        "Jeffrey Ayala",
+                                        "Mike Johnson",
+                                        "Amanda Lee",
+                                        "Aiden Patel",
+                                        "Ruby Shah"
+                                    ],
+                                    "scrumMasterName": "David Nguyen",
+                                    "startDate": "2021/03/15",
+                                    "methodology": "Agile"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product has been created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object",
+                                        "ref": "#/components/schemas/Product"
+                                    },
+                                    "example": {
+                                        "message": "Product successfully added!",
+                                        "newProductObject": {
+                                            "productId": 42,
+                                            "productName": "Acme Widget",
+                                            "productOwnerName": "Rafaela Costa",
+                                            "Developers": [
+                                                "Jeffrey Ayala",
+                                                "Mike Johnson",
+                                                "Amanda Lee",
+                                                "Aiden Patel",
+                                                "Ruby Shah"
+                                            ],
+                                            "scrumMasterName": "David Nguyen",
+                                            "startDate": "2021/03/15",
+                                            "methodology": "Agile"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Potentially missing required fields."
+                    },
+                    "500": {
+                        "description": "Server error."
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "put": {
+                "tags": ["products"],
+                "summary": "Update an existing product by ID",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "productId"
+                        },
+                        "required": true,
+                        "description": "The id of the product to update"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "example": {
+                                    "productId": 42,
+                                    "productName": "Acme Widget",
+                                    "productOwnerName": "Rafaela Costa",
+                                    "Developers": [
+                                        "Jeffrey Ayala",
+                                        "Mike Johnson",
+                                        "Amanda Lee",
+                                        "Aiden Patel",
+                                        "Ruby Shah"
+                                    ],
+                                    "scrumMasterName": "David Nguyen",
+                                    "startDate": "2021/03/15",
+                                    "methodology": "Agile"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product has been successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object",
+                                        "ref": "#/components/schemas/Product"
+                                    },
+                                    "example": {
+                                        "message": "Product with ID of 42 has been successfully updated!",
+                                        "updateResult": {
+                                            "productId": 42,
+                                            "productName": "Acme Widget",
+                                            "productOwnerName": "Rafaela Costa",
+                                            "Developers": [
+                                                "Jeffrey Ayala",
+                                                "Mike Johnson",
+                                                "Amanda Lee",
+                                                "Aiden Patel",
+                                                "Ruby Shah"
+                                            ],
+                                            "scrumMasterName": "David Nguyen",
+                                            "startDate": "2021/03/15",
+                                            "methodology": "Agile"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Potentially missing required fields."
+                    },
+                    "404": {
+                        "description": "Product with provided id not found."
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["products"],
+                "summary": "Delete an existing product by ID",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "productId"
+                        },
+                        "required": true,
+                        "description": "The id of the product to delete"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product has been successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object",
+                                        "ref": "#/components/schemas/Product"
+                                    },
+                                    "example": {
+                                        "message": "Product with ID of 42 has been successfully deleted.",
+                                        "deleteResult": [
+                                            {
+                                                "productId": 42,
+                                                "productName": "Acme Widget",
+                                                "productOwnerName": "Rafaela Costa",
+                                                "Developers": [
+                                                    "Jeffrey Ayala",
+                                                    "Mike Johnson",
+                                                    "Amanda Lee",
+                                                    "Aiden Patel",
+                                                    "Ruby Shah"
+                                                ],
+                                                "scrumMasterName": "David Nguyen",
+                                                "startDate": "2021/03/15",
+                                                "methodology": "Agile"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product with provided id not found."
+                    }
+                }
+            }
+        },
+        "api/health": {
+            "get": {
+                "tags": ["health"],
+                "summary": "Check the health of the API",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "API is healthy",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object",
+                                        "ref": "#/components/schemas/Health"
+                                    },
+                                    "example": {
+                                        "status": "Healthy"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "There is an issue with the API",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object",
+                                        "ref": "#/components/schemas/Health"
+                                    },
+                                    "example": {
+                                        "status": "There is an issue with the data in memory."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "type": "object",
+                "required": [
+                    "productId",
+                    "productName",
+                    "productOwnerName",
+                    "Developers",
+                    "scrumMasterName",
+                    "startDate",
+                    "methodology"
+                ],
+                "properties": {
+                    "productId": {
+                        "type": "number",
+                        "description": "The unique id of the product. This will be auto-generated when adding new products, and is required when updating or deleting products."
+                    },
+                    "productName": {
+                        "type": "string",
+                        "description": "The name of the product"
+                    },
+                    "productOwnerName": {
+                        "type": "string",
+                        "description": "The name of the product owner"
+                    },
+                    "Developers": {
+                        "type": "string[]",
+                        "description": "The names of the developers assigned to the product"
+                    },
+                    "scrumMasterName": {
+                        "type": "string",
+                        "description": "The name of the scrum master"
+                    },
+                    "startDate": {
+                        "type": "string",
+                        "description": "The date the product was started in the format YYYY-MM-DD. The year should be between 1900 and the current year. The month should be between 1 and 12. The day should be between 1 and 31. Months and dates can also be single digits in the request body, in this case they will be formatted to the YYYY-MM-DD format before saving."
+                    },
+                    "methodology": {
+                        "type": "string",
+                        "description": "The methodology used for the product (either Agile or Waterfall)"
+                    }
+                }
+            }
+        }
+    },
+    "apis": ["api/routes/*.js"]
+}
