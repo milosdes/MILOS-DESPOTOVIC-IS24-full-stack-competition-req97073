@@ -35,9 +35,9 @@ const LandingPage = ({
     }, [loadProductsError, setAlert]);
 
     return (
-        <div id="wrapper" className="p-4">
+        <div id="wrapper" className="p-6">
             <header className="font-bold flex justify-center p-2">
-                milos-despotovic-is24-full-stack-competition-req97073
+                <h1>milos-despotovic-is24-full-stack-competition-req97073</h1>
             </header>
             <main>
                 <Dashboard

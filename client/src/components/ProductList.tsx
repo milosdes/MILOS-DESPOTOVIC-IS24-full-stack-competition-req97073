@@ -70,7 +70,7 @@ const ProductList = ({ products }: IProductListProps) => {
         return (
             <div className="flex flex-col">
                 <div className="max-w-full">
-                    <div className="inline-block min-w-full py-2 px-6">
+                    <div className="inline-block min-w-full py-2">
                         <div className="overflow-hidden">
                             <table className="min-w-full max-w-full text-left text-sm font-light">
                                 <thead className="border-b font-medium dark:border-neutral-500">
