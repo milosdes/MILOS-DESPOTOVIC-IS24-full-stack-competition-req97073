@@ -45,6 +45,7 @@ const createProduct = async (req, res) => {
     //We could just use the spread operator and write ...req.body since we are doing validations on the frontend
     //But this adds an extra layer of protection if someone tries to create a new product by sending a POST request to our /products endpoint with a different client or a tool like Postman
 
+    //The startDate format is not validated here, the validation is performed on the frontend. For more robustness, we would want to perform validation here as well
     const newProductObject = {
         // ...req.body would be a simpler but less safe way to do this
         productId: newProductId,
@@ -52,6 +53,7 @@ const createProduct = async (req, res) => {
         productOwnerName: req.body.productOwnerName,
         Developers: req.body.Developers,
         scrumMasterName: req.body.scrumMasterName,
+
         startDate: req.body.startDate,
         methodology: req.body.methodology,
     };
@@ -84,8 +86,26 @@ const updateProduct = async (req, res) => {
     if (!req.params.id)
         res.status(404).json({
             message:
-                'For some reason there was no product ID associated with this update request. Please try again.',
+                'There was no product ID associated with this update request. Please try again and include a product ID.',
         });
+
+    //Ensure that relevant data is present
+    const validateRequiredDataIsPresent = () => {
+        if (
+            !req.body.productName |
+            !req.body.productOwnerName |
+            !req.body.Developers |
+            !req.body.scrumMasterName |
+            !req.body.startDate |
+            !req.body.methodology
+        ) {
+            res.send(400).json({
+                message: 'All input fields are required to update a product.',
+            });
+        }
+    };
+
+    validateRequiredDataIsPresent();
 
     const id = parseInt(req.params.id);
 
