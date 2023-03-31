@@ -62,6 +62,12 @@ const createProduct = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
+    if (!mockData) {
+        res.status(500).json({
+            status: 'There is an error with the server data',
+        });
+    }
+
     res.status(200).json(mockData);
 };
 
@@ -148,7 +154,7 @@ const deleteProduct = async (req, res) => {
 
     //Ensure that relevant id is present
     if (!req.params.id)
-        res.status(404).send({
+        res.status(400).send({
             message:
                 'For some reason there was no product ID associated with this delete request. Please try again.',
         });
@@ -163,7 +169,7 @@ const deleteProduct = async (req, res) => {
     const deleteResult = searchAndDeleteMockDb(id);
 
     if (!deleteResult) {
-        res.status(400).json({
+        res.status(404).json({
             message: `Product with ID of ${id} does not exist.`,
         });
     } else {
