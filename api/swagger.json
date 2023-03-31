@@ -14,16 +14,19 @@
             "url": "http://localhost:3000/api"
         }
     ],
-    "tags": {
-        "name": "products",
-        "description": "Access to IMB products"
-    },
+    "tags": [
+        {
+            "name": "products",
+            "description": "Access to IMB products"
+        }
+    ],
     "schemes": ["http"],
     "paths": {
-        "/api/products": {
+        "/products": {
             "get": {
                 "tags": ["products"],
                 "summary": "Get a list of all products",
+                "description": "Returns a list of all available IMB products",
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
@@ -73,13 +76,27 @@
                         }
                     },
                     "500": {
-                        "description": "Server error."
+                        "description": "Server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": {
+                                        "status": "There is an error with the server data"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
                 "tags": ["products"],
                 "summary": "Create a new product",
+                "description": "Creates a new IMB product",
                 "produces": ["application/json"],
                 "requestBody": {
                     "required": true,
@@ -139,22 +156,34 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request. Potentially missing required fields."
-                    },
-                    "500": {
-                        "description": "Server error."
+                        "description": "Bad request. Potentially missing required fields.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": {
+                                        "status": "Bad request. Potentially missing required fields."
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "/api/products/{id}": {
+        "/products/{id}": {
             "put": {
                 "tags": ["products"],
                 "summary": "Update an existing product by ID",
+                "description": "Updates an existing IMB product by ID",
                 "produces": ["application/json"],
                 "parameters": [
                     {
                         "name": "id",
+                        "in": "path",
                         "schema": {
                             "type": "productId"
                         },
@@ -221,20 +250,48 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request. Potentially missing required fields."
+                        "description": "Bad request. Potentially missing required fields.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": {
+                                        "status": "Bad request. Potentially missing required fields."
+                                    }
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Product with provided id not found."
+                        "description": "Product with provided id not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": {
+                                        "status": "Product with provided id not found."
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
                 "tags": ["products"],
                 "summary": "Delete an existing product by ID",
+                "description": "Deletes an existing IMB product by ID",
                 "produces": ["application/json"],
                 "parameters": [
                     {
                         "name": "id",
+                        "in": "path",
                         "schema": {
                             "type": "productId"
                         },
@@ -277,13 +334,42 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Bad request. Product id is either not included or not a number.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": {
+                                        "status": "Bad request. Product id is either not included or not a number."
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "404": {
-                        "description": "Product with provided id not found."
+                        "description": "Product with provided id not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": {
+                                        "status": "Product with provided id not found."
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "api/health": {
+        "/health": {
             "get": {
                 "tags": ["health"],
                 "summary": "Check the health of the API",
@@ -372,6 +458,5 @@
                 }
             }
         }
-    },
-    "apis": ["api/routes/*.js"]
+    }
 }
