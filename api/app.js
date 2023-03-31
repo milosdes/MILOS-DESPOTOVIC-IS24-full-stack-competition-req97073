@@ -24,7 +24,7 @@ app.use(jsonParser);
 //Serve the swagger docs
 app.use('/api/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsonOptions));
 
-//Serve the build of the client app
+//Serve the build of the client app as a static resource
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 //Serve the index page for the client app
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-//Product endpoint routes
+//Use product endpoint routes
 app.use('/api/products', require('./routes/product.js'));
 
 //Check health of in-memory data object

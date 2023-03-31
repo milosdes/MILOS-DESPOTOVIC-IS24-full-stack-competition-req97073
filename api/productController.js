@@ -2,14 +2,11 @@ const mockData = require('../data.json');
 const fs = require('fs');
 
 const createProduct = async (req, res) => {
-    // Note: Normally the ID/primary key auto-incrementation would be handled on a
-    // database level or with an ORM
+    // Note: Normally the ID/primary key auto-incrementation would be handled on a database level or with an ORM
     // Create a productId by adding 1 to length since productIds start at 1
     let newProductId = mockData.length + 1;
 
-    // Check the in memory object to make sure the new productId doesn't collide with
-    // an existing productId. This should not happen, but this check is done for
-    // good measure, and additionally incremented if
+    // Check the in memory object to make sure the new productId doesn't collide with an existing productId. This should not happen, but this check is done for good measure.
     const checkForIdCollisions = (id) => {
         for (i = 0; i < mockData.length; i++) {
             if (mockData[i].productId === id) {
@@ -24,6 +21,7 @@ const createProduct = async (req, res) => {
         newProductId++;
     }
 
+    //Ensure all required fields are present
     const validateRequiredDataIsPresent = () => {
         if (
             !req.body.productName |
@@ -41,13 +39,9 @@ const createProduct = async (req, res) => {
 
     validateRequiredDataIsPresent();
 
-    //Create a new object combining generated productId with the post body
-    //We could just use the spread operator and write ...req.body since we are doing validations on the frontend
-    //But this adds an extra layer of protection if someone tries to create a new product by sending a POST request to our /products endpoint with a different client or a tool like Postman
-
+    //Create a new object combining generated productId with the post body data
     //The startDate format is not validated here, the validation is performed on the frontend. For more robustness, we would want to perform validation here as well
     const newProductObject = {
-        // ...req.body would be a simpler but less safe way to do this
         productId: newProductId,
         productName: req.body.productName,
         productOwnerName: req.body.productOwnerName,
@@ -72,7 +66,7 @@ const getAllProducts = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-    //The search would traditionally be done with an ORM or SQL query on a database level. This function simulates a search by looping through the mockData object until it finds the productId, and then updates it with the updatedValesOb provided
+    //The search would traditionally be done with an ORM or SQL query on a database level. This function simulates a search by looping through the mockData object until it finds the productId, and then updates it with the updatedValuesObj provided. If the productId is not found, it returns false
     const searchAndUpdateMockDb = (id, updatedValuesObj) => {
         for (let i = 0; i < mockData.length; i++) {
             if (mockData[i].productId === id) {
@@ -80,9 +74,10 @@ const updateProduct = async (req, res) => {
                 return mockData[i];
             }
         }
+        return false;
     };
 
-    //Ensure that relevant id is present
+    //Ensure that relevant productId is present as a parameter in the url path
     if (!req.params.id)
         res.status(404).json({
             message:
@@ -109,6 +104,12 @@ const updateProduct = async (req, res) => {
 
     const id = parseInt(req.params.id);
 
+    if (Number.isNaN(id)) {
+        res.status(400).json({
+            message: 'Product ID must be a number. Please try again.',
+        });
+    }
+
     //Again, avoiding use of spread operator (...req.body) to ensure that only relevant data is received
     const updatedValues = {
         productName: req.body.productName,
@@ -121,13 +122,20 @@ const updateProduct = async (req, res) => {
 
     const updateResult = searchAndUpdateMockDb(id, updatedValues);
 
-    res.status(200).json({
-        message: `Product with ID of ${id} has been successfully updated!`,
-        updateResult,
-    });
+    if (!updateResult) {
+        res.status(400).json({
+            message: `Product with ID of ${id} does not exist.`,
+        });
+    } else {
+        res.status(200).json({
+            message: `Product with ID of ${id} has been successfully updated!`,
+            updateResult,
+        });
+    }
 };
 
 const deleteProduct = async (req, res) => {
+    //Returns false if the id is not found, otherwise returns the deleted item
     const searchAndDeleteMockDb = (id) => {
         for (let i = 0; i < mockData.length; i++) {
             if (mockData[i].productId === id) {
@@ -135,6 +143,7 @@ const deleteProduct = async (req, res) => {
                 return deletedItem;
             }
         }
+        return false;
     };
 
     //Ensure that relevant id is present
@@ -145,11 +154,24 @@ const deleteProduct = async (req, res) => {
         });
 
     const id = parseInt(req.params.id);
+    if (Number.isNaN(id)) {
+        res.status(400).json({
+            message: 'Product ID must be a number. Please try again.',
+        });
+    }
+
     const deleteResult = searchAndDeleteMockDb(id);
-    res.status(200).json({
-        message: `Product with ID of ${id} has been successfully deleted.`,
-        deleteResult,
-    });
+
+    if (!deleteResult) {
+        res.status(400).json({
+            message: `Product with ID of ${id} does not exist.`,
+        });
+    } else {
+        res.status(200).json({
+            message: `Product with ID of ${id} has been successfully deleted.`,
+            deleteResult,
+        });
+    }
 };
 
 const saveDataOnExit = async () => {
