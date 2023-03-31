@@ -71,6 +71,28 @@ const getAllProducts = async (req, res) => {
     res.status(200).json(mockData);
 };
 
+const getProductById = async (req, res) => {
+    const id = parseInt(req.params.id);
+    if (!mockData) {
+        res.status(500).json({
+            status: 'There is an error with the server data',
+        });
+    }
+
+    const searchMockDb = (id) => {
+        for (let i = 0; i < mockData.length; i++) {
+            if (mockData[i].productId === id) {
+                return mockData[i];
+            }
+        }
+        return false;
+    };
+
+    const product = searchMockDb(id);
+
+    res.status(200).json(product);
+};
+
 const updateProduct = async (req, res) => {
     //The search would traditionally be done with an ORM or SQL query on a database level. This function simulates a search by looping through the mockData object until it finds the productId, and then updates it with the updatedValuesObj provided. If the productId is not found, it returns false
     const searchAndUpdateMockDb = (id, updatedValuesObj) => {
