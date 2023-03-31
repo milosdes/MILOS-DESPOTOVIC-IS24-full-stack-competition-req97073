@@ -1,7 +1,7 @@
 [
     {
         "productId": 1,
-        "productName": "SmartGlasses",
+        "productName": "Smart Glasses",
         "productOwnerName": "Alicia Perez",
         "Developers": [
             "Ryan Kim",
@@ -16,7 +16,7 @@
     },
     {
         "productId": 2,
-        "productName": "SmartFridge",
+        "productName": "Smart Fridge",
         "productOwnerName": "Hassan Khan",
         "Developers": [
             "Liam Wong",
@@ -31,7 +31,7 @@
     },
     {
         "productId": 3,
-        "productName": "SmartWatch",
+        "productName": "Smart Watch",
         "productOwnerName": "Mia Patel",
         "Developers": [
             "Sofia Martinez",
@@ -46,7 +46,7 @@
     },
     {
         "productId": 4,
-        "productName": "SmartToaster",
+        "productName": "Smart Toaster",
         "productOwnerName": "William Chen",
         "Developers": [
             "Emma Jones",
@@ -61,7 +61,7 @@
     },
     {
         "productId": 5,
-        "productName": "SmartLock",
+        "productName": "Smart Lock",
         "productOwnerName": "Isabella Rodriguez",
         "Developers": [
             "Gavin Lee",
@@ -76,7 +76,7 @@
     },
     {
         "productId": 6,
-        "productName": "SmartTV",
+        "productName": "Smart TV",
         "productOwnerName": "Kaitlyn Smith",
         "Developers": [
             "Emily Lee",
@@ -91,7 +91,7 @@
     },
     {
         "productId": 7,
-        "productName": "SmartSpeaker",
+        "productName": "Smart Speaker",
         "productOwnerName": "Ethan Johnson",
         "Developers": [
             "Aiden Martinez",
@@ -106,7 +106,7 @@
     },
     {
         "productId": 8,
-        "productName": "Product 8",
+        "productName": "Website",
         "productOwnerName": "Hannah Lee",
         "Developers": [
             "David Kim",
@@ -121,7 +121,7 @@
     },
     {
         "productId": 9,
-        "productName": "Product 9",
+        "productName": "Fullstack App",
         "productOwnerName": "William Jones",
         "Developers": [
             "Ava Hernandez",
@@ -136,7 +136,7 @@
     },
     {
         "productId": 10,
-        "productName": "Product 10",
+        "productName": "Backend API",
         "productOwnerName": "Lea Weber",
         "Developers": [
             "Ashley Kim",
@@ -151,7 +151,7 @@
     },
     {
         "productId": 11,
-        "productName": "Product 11",
+        "productName": "AWS Website",
         "productOwnerName": "Ahmed Ali",
         "Developers": [
             "Mia Patel",
@@ -166,7 +166,7 @@
     },
     {
         "productId": 12,
-        "productName": "Product 12",
+        "productName": "NoSQL Database",
         "productOwnerName": "Leila Nguyen",
         "Developers": [
             "Ella Johnson",
@@ -181,7 +181,7 @@
     },
     {
         "productId": 13,
-        "productName": "Product 13",
+        "productName": "Smart Product",
         "productOwnerName": "Nathan Kim",
         "Developers": [
             "Liam Davis",
@@ -196,7 +196,7 @@
     },
     {
         "productId": 14,
-        "productName": "Product 14",
+        "productName": "Linux Server",
         "productOwnerName": "Sofia Martinez",
         "Developers": [
             "Noah Johnson",
@@ -451,7 +451,7 @@
     },
     {
         "productId": 31,
-        "productName": "E-commerce Website",
+        "productName": "E-commerce Mobile App",
         "productOwnerName": "Daniel Lee",
         "Developers": [
             "Emma Kim",
